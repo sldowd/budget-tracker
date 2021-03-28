@@ -1,23 +1,28 @@
 const APP_PREFIX = 'BudgetTracker-';     
-const VERSION = 'version_01';
+const VERSION = 'v1';
 const CACHE_NAME = APP_PREFIX + VERSION;
+const DATA_CACHE_NAME = "data-cache-" + VERSION;
 
 const FILES_TO_CACHE = [
-    "./index.html",
-    "./js/index.js",
-    "./css/style.css"
+  "/",
+  "./js/index.js",  
+  "./index.html",
+  "./css/styles.css",
+  "./js/idb.js",
+  "./manifest.json"
 ]
 
 self.addEventListener('install', function (e) {
     e.waitUntil(
       caches.open(CACHE_NAME).then(function (cache) {
         console.log('installing cache : ' + CACHE_NAME)
-        return cache.addAll(FILES_TO_CACHE)
+        return cache.addAll(FILES_TO_CACHE);
       })
     )
-  })
+  });
 
 self.addEventListener('activate', function(e) {
+  console.log('test1')
     e.waitUntil(
       caches.keys().then(function(keyList) {
         let cacheKeeplist = keyList.filter(function(key) {
